@@ -1,6 +1,6 @@
 // Home Base service worker: offline shell + push notifications.
 // Bump CACHE whenever app files change together with a page.
-const CACHE = "homebase-v1";
+const CACHE = "homebase-v2";
 const SHELL = ["/", "/index.html", "/style.css", "/app.js", "/ui.js", "/vendor/preact-htm.js", "/manifest.webmanifest", "/icons/icon.svg",
   "/pages/dashboard.js", "/pages/budget.js", "/pages/transactions.js", "/pages/paycheck.js", "/pages/accounts.js", "/pages/goals.js",
   "/pages/home.js", "/pages/crud.js", "/pages/settings.js"];

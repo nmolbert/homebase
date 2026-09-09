@@ -124,7 +124,8 @@ async function checkPush() {
 function urlB64ToU8(s) { const pad = "=".repeat((4 - (s.length % 4)) % 4); const b = atob((s + pad).replace(/-/g, "+").replace(/_/g, "/")); return Uint8Array.from(b, (c) => c.charCodeAt(0)); }
 async function subscribePush(boot, who, people) {
   const perm = await Notification.requestPermission();
-  if (perm !== "granted") throw new Error("Notifications were not allowed.");
+  if (perm === "denied") throw new Error("Notifications are blocked for this site in the browser's settings. Allow them there, reload, and try again.");
+  if (perm !== "granted") throw new Error("The permission prompt was dismissed. Tap the button again and choose Allow.");
   const reg = await navigator.serviceWorker.ready;
   const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlB64ToU8(boot.vapid_public) });
   const person = people.find((p) => p.id === who);
