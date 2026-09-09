@@ -37,10 +37,12 @@ export class Household {
   constructor(private state: any, env: Env) {
     this.env = env;
     const sql = state.storage.sql;
+    // SqlStorage binds ArrayBuffer for blobs, not Uint8Array.
+    const fix = (p: unknown[]) => p.map((v) => v instanceof Uint8Array ? v.buffer.slice(v.byteOffset, v.byteOffset + v.byteLength) : v);
     this.db = {
-      all: (q, ...p) => sql.exec(q, ...p).toArray(),
-      one: (q, ...p) => sql.exec(q, ...p).toArray()[0],
-      run: (q, ...p) => { sql.exec(q, ...p); },
+      all: (q, ...p) => sql.exec(q, ...fix(p)).toArray(),
+      one: (q, ...p) => sql.exec(q, ...fix(p)).toArray()[0],
+      run: (q, ...p) => { sql.exec(q, ...fix(p)); },
       exec: (q) => { sql.exec(q); },
     };
   }
