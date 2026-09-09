@@ -22,7 +22,7 @@ export function fromB64url(s: string): Uint8Array {
 export async function hashPin(pin: string, saltB64?: string) {
   const salt = saltB64 ? fromB64url(saltB64) : crypto.getRandomValues(new Uint8Array(16));
   const key = await crypto.subtle.importKey("raw", enc.encode(pin), "PBKDF2", false, ["deriveBits"]);
-  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: B(salt), iterations: 120000 }, key, 256);
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: B(salt), iterations: 100000 }, key, 256);
   return `${b64url(salt)}.${b64url(bits)}`;
 }
 export async function verifyPin(pin: string, stored: string) {
