@@ -1,0 +1,13 @@
+{
+  "name": "homebase",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Home Base — Nick + Alex household budget and home manual",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4.30.0"
+  }
+}
